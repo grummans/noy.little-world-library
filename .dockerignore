@@ -1,0 +1,25 @@
+# Dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+
+# Version control and editor config
+.git/
+.github/
+.vscode/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Logs, test artifacts and tooling caches
+*.log
+coverage/
+.playwright-mcp/
+.DS_Store
+Thumbs.db
+
+# Docker files themselves
+Dockerfile
+.dockerignore
