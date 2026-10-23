@@ -41,7 +41,7 @@ export const books: Book[] = [
   {
     slug: "the-gioi-thuc-vat",
     title: "Thế giới thực vật",
-    cover: "/covers/the-gioi-thuc-vat.webp",
+    cover: "/covers/the-gioi-thuc-vat.png",
     epubUrl: "/books/the-gioi-thuc-vat.epub",
     category: "Thiên nhiên",
     ageRange: "4–6 tuổi",
@@ -56,7 +56,7 @@ export const books: Book[] = [
   {
     slug: "truong-mam-non",
     title: "Trường mầm non",
-    cover: "/covers/truong-mam-non.webp",
+    cover: "/covers/truong-mam-non.png",
     epubUrl: "/books/truong-mam-non.epub",
     category: "Kỹ năng sống",
     ageRange: "3–5 tuổi",
@@ -78,7 +78,8 @@ export const books: Book[] = [
     duration: "7 phút",
     description: "Một ngày sum vầy bên ông bà, bố mẹ và những người thân yêu.",
     hasAudio: true,
-    isFree: true,
+    isFree: false,
+    price: 25000,
     learningObjectives: [
       "Gọi tên thành viên gia đình",
       "Thể hiện tình cảm với người thân",
@@ -96,7 +97,8 @@ export const books: Book[] = [
     description:
       "Bé khám phá nước, mưa, nắng và cầu vồng qua những trang sách rực rỡ.",
     hasAudio: true,
-    isFree: true,
+    isFree: false,
+    price: 32000,
     learningObjectives: [
       "Nhận biết các hiện tượng tự nhiên",
       "Quan sát và đặt câu hỏi",
@@ -106,7 +108,7 @@ export const books: Book[] = [
   {
     slug: "que-huong-dat-nuoc",
     title: "Quê hương đất nước",
-    cover: "/covers/que-huong-dat-nuoc.webp",
+    cover: "/covers/que-huong-dat-nuoc.png",
     epubUrl: "/books/que-huong-dat-nuoc.epub",
     category: "Thiên nhiên",
     ageRange: "5–6 tuổi",
@@ -133,21 +135,23 @@ export const books: Book[] = [
     description:
       "Bé học về cơ thể, giác quan và những điều làm nên chính mình.",
     hasAudio: true,
-    isFree: true,
+    isFree: false,
+    price: 35000,
     learningObjectives: ["Nhận biết bộ phận cơ thể", "Hiểu và gọi tên cảm xúc"],
     published: true,
   },
   {
     slug: "phuong-tien-giao-thong",
     title: "Phương tiện giao thông",
-    cover: "/covers/phuong-tien-giao-thong.webp",
+    cover: "/covers/phuong-tien-giao-thong.png",
     epubUrl: "/books/phuong-tien-giao-thong.epub",
     category: "Kỹ năng sống",
     ageRange: "3–5 tuổi",
     duration: "7 phút",
     description: "Bé nhận biết xe đạp, ô tô, máy bay và cách đi lại an toàn.",
     hasAudio: true,
-    isFree: true,
+    isFree: false,
+    price: 19000,
     learningObjectives: [
       "Nhận biết phương tiện giao thông",
       "Học quy tắc an toàn đơn giản",
