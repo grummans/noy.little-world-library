@@ -12,7 +12,7 @@ export const createLibraryFilters = (category = 'all'): LibraryFilters => ({
   search: '',
   category,
   age: 'all',
-  option: 'free-audio',
+  option: 'all',
 })
 
 const normalize = (value: string) =>

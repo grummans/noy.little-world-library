@@ -201,14 +201,14 @@ export class FixedLayout extends HTMLElement {
     open(book) {
         this.book = book
         const { rendition } = book
-        this.spread = rendition?.spread
+        this.spread = 'none' // single-page presentation, ignore the book's rendition:spread
         this.defaultViewport = rendition?.viewport
 
         const rtl = book.dir === 'rtl'
         const ltr = !rtl
         this.rtl = rtl
 
-        if (rendition?.spread === 'none')
+        if (this.spread === 'none')
             this.#spreads = book.sections.map(section => ({ center: section }))
         else this.#spreads = book.sections.reduce((arr, section, i) => {
             const last = arr[arr.length - 1]
@@ -316,4 +316,4 @@ export class FixedLayout extends HTMLElement {
     }
 }
 
-customElements.define('foliate-fxl', FixedLayout)
+if (!customElements.get('foliate-fxl')) customElements.define('foliate-fxl', FixedLayout)

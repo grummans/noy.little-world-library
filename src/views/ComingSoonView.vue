@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppHeader from '../components/app/AppHeader.vue'
+import AppFooter from '../components/app/AppFooter.vue'
 
 defineProps<{ title: string }>()
 </script>
@@ -12,5 +13,7 @@ defineProps<{ title: string }>()
       <p>Nội dung đang được hoàn thiện.</p>
       <RouterLink to="/">Về trang chủ</RouterLink>
     </main>
+
+    <AppFooter :label="title" />
   </div>
 </template>

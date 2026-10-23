@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { SearchX } from 'lucide-vue-next'
+import { ChevronLeft, ChevronRight, SearchX } from 'lucide-vue-next'
 import AppHeader from '../components/app/AppHeader.vue'
+import AppFooter from '../components/app/AppFooter.vue'
 import BookFilters from '../components/books/BookFilters.vue'
 import BookGrid from '../components/books/BookGrid.vue'
 import BaseButton from '../components/ui/BaseButton.vue'
@@ -22,12 +23,31 @@ const categoryFromQuery = () => {
 }
 
 const filters = ref<LibraryFilters>(createLibraryFilters(categoryFromQuery()))
-const visibleCount = ref(4)
-
 const filteredBooks = computed(() => filterBooks(filters.value))
-const visibleBooks = computed(() => filteredBooks.value.slice(0, visibleCount.value))
-const hasMore = computed(() => filteredBooks.value.length > visibleCount.value)
 
+const BOOKS_PER_PAGE = 10
+const currentPage = ref(1)
+const pageCount = computed(() => Math.ceil(filteredBooks.value.length / BOOKS_PER_PAGE))
+const paginatedBooks = computed(() => {
+  const start = (currentPage.value - 1) * BOOKS_PER_PAGE
+  return filteredBooks.value.slice(start, start + BOOKS_PER_PAGE)
+})
+const paginationPages = computed(() => {
+  const total = pageCount.value
+  if (total <= 5) return Array.from({ length: total }, (_, index) => index + 1)
+
+  const start = Math.max(2, currentPage.value - 1)
+  const end = Math.min(total - 1, currentPage.value + 1)
+  return [1, ...(start > 2 ? [null] : []), ...Array.from({ length: end - start + 1 }, (_, index) => start + index), ...(end < total - 1 ? [null] : []), total]
+})
+
+const setPage = (page: number) => {
+  currentPage.value = page
+}
+
+watch(filteredBooks, () => {
+  currentPage.value = 1
+})
 const updateFilters = (value: LibraryFilters) => {
   const categoryChanged = value.category !== filters.value.category
   filters.value = value
@@ -75,13 +95,6 @@ watch(
             <h1 id="library-title">Một thế giới sách nhỏ xinh</h1>
             <p>Chọn một cuốn sách để xem nội dung và bắt đầu đọc</p>
           </div>
-          <BaseButton
-            v-if="hasMore"
-            variant="secondary"
-            @click="visibleCount += 4"
-          >
-            Xem thêm
-          </BaseButton>
         </div>
 
         <BookFilters
@@ -96,10 +109,11 @@ watch(
         </p>
 
         <BookGrid
-          v-if="visibleBooks.length"
-          :books="visibleBooks"
+          v-if="paginatedBooks.length"
+          :books="paginatedBooks"
           variant="library"
         />
+
 
         <div v-else class="library-empty">
           <span class="library-empty__icon" aria-hidden="true">
@@ -111,6 +125,39 @@ watch(
             Đặt lại bộ lọc
           </BaseButton>
         </div>
+        <nav v-if="filteredBooks.length" class="library-pagination" aria-label="Phân trang thư viện">
+          <button
+            class="library-pagination__button"
+            type="button"
+            :disabled="currentPage === 1"
+            @click="setPage(currentPage - 1)"
+          >
+            <ChevronLeft :size="18" aria-hidden="true" />
+            <span class="sr-only">Trang trước</span>
+          </button>
+          <template v-for="(page, index) in paginationPages" :key="`${page}-${index}`">
+            <span v-if="page === null" class="library-pagination__ellipsis" aria-hidden="true">…</span>
+            <button
+              v-else
+              class="library-pagination__button"
+              :class="{ 'library-pagination__button--current': page === currentPage }"
+              type="button"
+              :aria-current="page === currentPage ? 'page' : undefined"
+              @click="setPage(page)"
+            >
+              {{ page }}
+            </button>
+          </template>
+          <button
+            class="library-pagination__button"
+            type="button"
+            :disabled="currentPage === pageCount"
+            @click="setPage(currentPage + 1)"
+          >
+            <ChevronRight :size="18" aria-hidden="true" />
+            <span class="sr-only">Trang sau</span>
+          </button>
+        </nav>
       </section>
 
       <aside class="adult-banner" aria-labelledby="adult-title">
@@ -127,5 +174,7 @@ watch(
         </div>
       </aside>
     </main>
+
+    <AppFooter label="Thư viện sách" />
   </div>
 </template>

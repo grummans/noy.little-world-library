@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { Heart, Sparkles } from 'lucide-vue-next'
+import { BookOpen, Sparkles } from 'lucide-vue-next'
 import AppHeader from '../components/app/AppHeader.vue'
+import AppFooter from '../components/app/AppFooter.vue'
+import BaseButton from '../components/ui/BaseButton.vue'
 
-const authors = ['Trương Thu Huyền', 'Dương Hoài Thương', 'Bùi Thị Thanh Thảo', 'Vũ Kiều Anh']
+const authors = [
+  { name: 'Trương Thu Huyền', initials: 'TH' },
+  { name: 'Dương Hoài Thương', initials: 'HT' },
+  { name: 'Bùi Thị Thanh Thảo', initials: 'TT' },
+  { name: 'Vũ Kiều Anh', initials: 'KA' },
+]
 </script>
 
 <template>
@@ -10,37 +17,67 @@ const authors = ['Trương Thu Huyền', 'Dương Hoài Thương', 'Bùi Thị T
     <AppHeader variant="overlay" contrast="dark" />
 
     <main class="about-shell">
-      <section class="about-hero" aria-labelledby="about-title">
-        <div class="about-hero__copy">
-          <span class="about-eyebrow"><Sparkles :size="17" aria-hidden="true" /> Về Little Wonder Library</span>
-          <h1 id="about-title">Những trang sách nhỏ, những điều kỳ diệu thật to</h1>
-          <p>
-            Little Wonder Library là góc đọc sách dịu dàng dành cho các bé, nơi mỗi câu chuyện
-            mở ra niềm vui khám phá, lắng nghe và lớn lên mỗi ngày.
-          </p>
-        </div>
-        <div class="about-hero__art" aria-hidden="true">
-          <span>✦</span><span>♥</span><span>✿</span>
-          <div class="about-hero__book">Little<br />Wonder</div>
+      <section class="about-intro" aria-labelledby="about-title">
+        <nav class="about-breadcrumb" aria-label="Breadcrumb">
+          <RouterLink to="/">Trang chủ</RouterLink>
+          <span aria-hidden="true">/</span>
+          <span>Về chúng tôi</span>
+        </nav>
+
+        <div class="about-intro__body">
+          <div class="about-copy">
+            <p class="about-eyebrow"><Sparkles :size="14" aria-hidden="true" /> LITTLE WONDER LIBRARY</p>
+            <h1 id="about-title">Về chúng tôi</h1>
+            <p class="about-purpose">Một thư viện nhỏ,<br /><span>mở ra bao điều kỳ diệu.</span></p>
+            <p class="about-copy__text">
+              Little Wonder Library là thư viện truyện tương tác dành cho trẻ em, nơi bé khám phá động
+              vật, thiên nhiên, cảm xúc, kỹ năng sống và gia đình qua hình ảnh, âm thanh và những câu
+              chuyện gần gũi.
+            </p>
+            <p class="about-copy__text">
+              Chúng tôi mong mỗi lần mở sách là một dịp để bé tò mò, tưởng tượng và cùng người lớn trò
+              chuyện về thế giới quanh mình.
+            </p>
+          </div>
+
+          <figure class="about-figure">
+            <img
+              src="/images/about-bunny-storytime.jpg"
+              alt="Chú thỏ đọc sách giữa khu vườn kỳ diệu"
+              width="1264"
+              height="848"
+            />
+            <figcaption>Mỗi trang sách, một thế giới để khám phá.</figcaption>
+          </figure>
+
         </div>
       </section>
 
       <section class="about-authors" aria-labelledby="authors-title">
-        <div class="about-section-heading">
-          <span class="about-section-heading__icon"><Heart :size="20" fill="currentColor" aria-hidden="true" /></span>
-          <div>
-            <h2 id="authors-title">Nhóm tác giả</h2>
-            <p>Những người cùng chăm chút cho thư viện sách nhỏ xinh này.</p>
-          </div>
-        </div>
+        <p class="about-eyebrow">NHÓM TÁC GIẢ</p>
+        <h2 id="authors-title">Cùng làm nên Little Wonder Library</h2>
+        <p class="about-authors__lead">
+          Xin chào! Chúng tôi là nhóm tác giả của thư viện truyện tương tác này.
+        </p>
         <ul class="author-list">
-          <li v-for="(author, index) in authors" :key="author" class="author-card">
-            <span class="author-card__number">0{{ index + 1 }}</span>
-            <h3>{{ author }}</h3>
-            <span class="author-card__sparkle" aria-hidden="true">✦</span>
+          <li v-for="author in authors" :key="author.name" class="author-card">
+            <span class="author-card__monogram" aria-hidden="true">{{ author.initials }}</span>
+            <h3>{{ author.name }}</h3>
+            <BookOpen class="author-card__icon" :size="25" aria-hidden="true" />
           </li>
         </ul>
       </section>
+
+      <section class="about-invite" aria-labelledby="invite-title">
+        <span class="about-invite__symbol" aria-hidden="true"><BookOpen :size="34" /></span>
+        <div class="about-invite__copy">
+          <h2 id="invite-title">Câu chuyện tiếp theo đang chờ bé!</h2>
+          <p>Cùng bé chọn một cuốn sách và bắt đầu chuyến phiêu lưu nhỏ hôm nay.</p>
+        </div>
+        <BaseButton to="/library">Khám phá thư viện</BaseButton>
+      </section>
+
+      <AppFooter label="Về chúng tôi" />
     </main>
   </div>
 </template>
