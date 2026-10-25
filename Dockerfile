@@ -15,6 +15,9 @@ RUN npm run build
 # ---- Runtime stage --------------------------------------------------------
 FROM nginx:stable-alpine AS runtime
 
+# Apply available Alpine security updates, including the patched brotli-libs.
+RUN apk upgrade --no-cache
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
