@@ -30,7 +30,7 @@ const authors = [
             <h1 id="about-title">Về chúng tôi</h1>
             <p class="about-purpose">Một thư viện nhỏ,<br /><span>mở ra bao điều kỳ diệu.</span></p>
             <p class="about-copy__text">
-              Little Wonder Library là thư viện truyện tương tác dành cho trẻ em, nơi bé khám phá động
+              Little Wonder Library là thư viện sách tương tác dành cho trẻ em, nơi bé khám phá động
               vật, thiên nhiên, cảm xúc, kỹ năng sống và gia đình qua hình ảnh, âm thanh và những câu
               chuyện gần gũi.
             </p>
@@ -57,7 +57,7 @@ const authors = [
         <p class="about-eyebrow">NHÓM TÁC GIẢ</p>
         <h2 id="authors-title">Cùng làm nên Little Wonder Library</h2>
         <p class="about-authors__lead">
-          Xin chào! Chúng tôi là nhóm tác giả của thư viện truyện tương tác này.
+          Xin chào! Chúng tôi là nhóm tác giả của thư viện sách tương tác này.
         </p>
         <ul class="author-list">
           <li v-for="author in authors" :key="author.name" class="author-card">
